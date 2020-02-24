@@ -69,27 +69,33 @@ def viewLogDistribution(colum, dataframe):
 #viewDistribution('NumberOfTime60-89DaysPastDueNotWorse',a)
 #viewDistribution('NumberOfDependents',a)
 
-#probability of a given b = probability of and and b, divided by probability of b
+#probability of a given b = probability of a and b, divided by probability of b
 def computeDefaultRisk(colum,bin,targetFeature,dataframe):
 	#column is name of column being looked at
 	#bin is the start and end of the range of values you are looking at
 	#target feature is the delinquincy
-	df = dataframe
-	for index, row in df.iterrows():
-    	print(row['c1'], row['c2'])
 
-		#if (int(colum[j]) <= 50) and (int(column[j]) >= 0):
-			#a+=1
-		#j +=1
+	seriesObj = dataframe.apply(lambda x: True if (x[colum] > 50) & (x[targetFeature] == 1) else False , axis=1)
+ 
+	# Count number of True in series
+	ab = float(len(seriesObj[seriesObj == True].index))
 
-	print a
+	seriesObj2 = dataframe.apply(lambda x: True if x[targetFeature] == 1 else False , axis=1)
+ 
+	# Count number of True in series
+	b = float(len(seriesObj2[seriesObj2 == True].index))
+	
+
+	print (ab)/b
 
 
-array = [0,50]
-computeDefaultRisk('age',array,"SeriousDlqin2yrs",a)
+array = [50,120]
+#computeDefaultRisk('age',array,'SeriousDlqin2yrs',a)
 
 
 
+
+c = loadAndCleanData('newLoans.csv')
 
 
 
